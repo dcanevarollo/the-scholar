@@ -1,0 +1,44 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+    *ngIf="visible"
+  >
+    <mat-nav-list>
+      <h3 matSubheader>Your content</h3>
+
+      <a mat-list-item routerLink="files">
+        <mat-icon matListIcon>folder</mat-icon>
+        <h3 matLine>Files</h3>
+        <p matLine>Your stored files</p>
+      </a>
+      <a mat-list-item routerLink="courses">
+        <mat-icon matListIcon>school</mat-icon>
+        <h3 matLine>Courses</h3>
+        <p matLine>Courses you teach</p>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" *ngIf="visible">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="toggleDrawer()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>The <strong>Scholar</strong></span>
+    </mat-toolbar>
+
+    <!--<router-outlet/>-->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
