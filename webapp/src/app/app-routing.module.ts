@@ -8,6 +8,12 @@ import { LoginComponent } from './core/login/login.component';
 
 const routes: Routes = [
   {
+    path: 'users',
+    loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard]
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
