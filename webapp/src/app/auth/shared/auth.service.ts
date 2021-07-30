@@ -3,7 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
-import { User } from 'src/app/core/shared/user.model';
+import { User } from 'src/app/users/shared/user.model';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
 import { environment } from 'src/environments/environment';
 
@@ -63,7 +63,6 @@ export class AuthService {
     localStorage.clear();
 
     this.user = null;
-    this.showNavEmitter.emit(false);
     this.redirectUrl = '/dashboard';
     this.router.navigate(['/login']);
   }

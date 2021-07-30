@@ -28,14 +28,30 @@
     <mat-toolbar color="primary" *ngIf="visible">
       <button
         type="button"
-        aria-label="Toggle sidenav"
         mat-icon-button
         (click)="toggleDrawer()"
         *ngIf="isHandset$ | async"
       >
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        <mat-icon>menu</mat-icon>
       </button>
-      <span>The <strong>Scholar</strong></span>
+      <div class="toolbar-content">
+        <span>The <strong>Scholar</strong></span>
+
+        <div matRipple class="avatar" [matMenuTriggerFor]="menu">
+          <img [src]="user?.avatarUrl" [alt]="user?.name" />
+        </div>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="profile">
+            <mat-icon>person</mat-icon>
+            <span>Edit Profile</span>
+          </button>
+
+          <button mat-menu-item (click)="onLogout()">
+            <mat-icon>logout</mat-icon>
+            <span>Sign Out</span>
+          </button>
+        </mat-menu>
+      </div>
     </mat-toolbar>
 
     <!--<router-outlet/>-->
