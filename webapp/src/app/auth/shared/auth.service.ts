@@ -14,7 +14,6 @@ import { Auth } from './auth.model';
 export class AuthService {
 
   private readonly API = `${environment.apiUrl}/auth`;
-  private readonly APP_KEY = '@the-scholar';
 
   user: User | null = null;
   redirectUrl = '/dashboard';
@@ -23,8 +22,8 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     if (!this.user) {
-      const token = localStorage.getItem(`${this.APP_KEY}/access-token`);
-      let user = localStorage.getItem(`${this.APP_KEY}/user`);
+      const token = localStorage.getItem('@the-scholar/access-token');
+      let user = localStorage.getItem('@the-scholar/user');
 
       if (token && user) this.user = JSON.parse(user);
     }
@@ -40,8 +39,8 @@ export class AuthService {
         map(response => {
           const { token, user } = response;
 
-          localStorage.setItem(`${this.APP_KEY}/access-token`, token);
-          localStorage.setItem(`${this.APP_KEY}/user`, JSON.stringify(user));
+          localStorage.setItem('@the-scholar/access-token', token);
+          localStorage.setItem('@the-scholar/user', JSON.stringify(user));
 
           this.user = user;
           this.router.navigate([this.redirectUrl]);
