@@ -1,0 +1,42 @@
+<div appContainer maxWidth="400px" class="auth-container">
+  <h1 class="mat-display-2">The <strong>Scholar</strong></h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Hi there!</mat-card-title>
+        <mat-card-subtitle>Sign in to access your courses</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-form-field>
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="email" />
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error>{{ emailError }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            [type]="hidePassword ? 'password' : 'text'"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+          >
+            <mat-icon>
+              {{ hidePassword ? "visibility_off" : "visibility" }}
+            </mat-icon>
+          </button>
+          <mat-error>Password is required</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary">Sign In</button>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>
