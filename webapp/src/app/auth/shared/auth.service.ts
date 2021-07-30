@@ -6,7 +6,11 @@ import { take } from 'rxjs/operators';
 import { User } from 'src/app/core/shared/user.model';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
 import { environment } from 'src/environments/environment';
-import { Auth } from '../auth.model';
+
+interface Auth {
+  token: string;
+  user: User
+}
 
 @Injectable({
   providedIn: 'root'
