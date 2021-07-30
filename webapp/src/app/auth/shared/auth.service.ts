@@ -17,7 +17,7 @@ export class AuthService {
   private readonly APP_KEY = '@the-scholar';
 
   user: User | null = null;
-  redirectUrl: string | null = null;
+  redirectUrl = '/dashboard';
 
   constructor(private httpClient: HttpClient, private router: Router) { }
 
@@ -53,7 +53,8 @@ export class AuthService {
     localStorage.clear();
 
     this.user = null;
-    this.router.navigate(['/']);
+    this.redirectUrl = '/dashboard';
+    this.router.navigate(['/login']);
   }
 
 }
