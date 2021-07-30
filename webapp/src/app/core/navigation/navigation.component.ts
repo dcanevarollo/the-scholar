@@ -5,6 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
 
 import { AuthService } from 'src/app/auth/shared/auth.service';
+import { User } from '../../users/shared/user.model';
 
 @Component({
   selector: 'app-navigation',
@@ -24,6 +25,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private authService: AuthService
   ) { }
 
+  get user(): User {
+    return this.authService.user!;
+  }
+
   ngOnInit(): void {
     this.subscription = this.authService.showNavEmitter.subscribe(
       visible => this.visible = visible
@@ -39,6 +44,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   toggleDrawer(): void {
     this.drawerRef?.nativeElement.toggle();
+  }
+
+  onLogout(): void {
+    this.authService.logout();
   }
 
   ngOnDestroy(): void {
