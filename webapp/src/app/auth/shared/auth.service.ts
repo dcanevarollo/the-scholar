@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { User } from 'src/app/core/shared/user.model';
+import { SnackBarService } from 'src/app/shared/snack-bar.service';
 import { environment } from 'src/environments/environment';
-import { Auth } from './auth.model';
+import { Auth } from '../auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,11 @@ export class AuthService {
   user: User | null = null;
   redirectUrl = '/dashboard';
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private snackBarService: SnackBarService
+  ) { }
 
   get isLoggedIn(): boolean {
     if (!this.user) {
@@ -31,12 +35,12 @@ export class AuthService {
     return !!this.user;
   }
 
-  login(credentials: { email: string; password: string }): Observable<void> {
-    return this.httpClient
+  login(credentials: { email: string; password: string }): void {
+    this.httpClient
       .post<Auth>(this.API, credentials)
-      .pipe(
-        take(1),
-        map(response => {
+      .pipe(take(1))
+      .subscribe(
+        response => {
           const { token, user } = response;
 
           localStorage.setItem('@the-scholar/access-token', token);
@@ -44,7 +48,8 @@ export class AuthService {
 
           this.user = user;
           this.router.navigate([this.redirectUrl]);
-        })
+        },
+        ({ error }: HttpErrorResponse) => this.snackBarService.showError(error)
       );
   }
 
