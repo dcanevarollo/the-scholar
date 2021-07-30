@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   hidePassword = true;
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private service: AuthService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService) { }
 
   get emailError(): string {
     const control = this.form.get('email');
@@ -31,10 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.form.valid)
-      this.service
-        .login(this.form.value)
-        .subscribe();
+    if (this.form.valid) this.authService.login(this.form.value);
   }
 
 }

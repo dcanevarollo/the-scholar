@@ -1,4 +1,26 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$success: mat-palette($mat-teal, 700);
+$error: mat-palette($mat-red, 700);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-snack-bar-container {
+  color: #eee;
+
+  &.app-snack-bar-success {
+    background-color: mat-color($success);
+  }
+
+  &.app-snack-bar-error {
+    background-color: mat-color($error);
+  }
+
+  button {
+    color: #eee;
+  }
+}
