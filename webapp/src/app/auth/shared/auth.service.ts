@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
@@ -19,6 +19,7 @@ export class AuthService {
 
   private readonly API = `${environment.apiUrl}/auth`;
 
+  showNavEmitter = new EventEmitter<boolean>();
   user: User | null = null;
   redirectUrl = '/dashboard';
 
@@ -51,6 +52,7 @@ export class AuthService {
           localStorage.setItem('@the-scholar/user', JSON.stringify(user));
 
           this.user = user;
+          this.showNavEmitter.emit(true);
           this.router.navigate([this.redirectUrl]);
         },
         ({ error }: HttpErrorResponse) => this.snackBarService.showError(error)
@@ -61,6 +63,7 @@ export class AuthService {
     localStorage.clear();
 
     this.user = null;
+    this.showNavEmitter.emit(false);
     this.redirectUrl = '/dashboard';
     this.router.navigate(['/login']);
   }
