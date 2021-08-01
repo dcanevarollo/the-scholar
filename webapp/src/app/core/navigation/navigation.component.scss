@@ -1,9 +1,18 @@
+@import '~@angular/material/theming';
+
+$accent: mat-palette($mat-amber, A400);
+$primary: mat-palette($mat-deep-purple, A400);
+
 .sidenav-container {
   height: 100%;
 }
 
 .sidenav {
   width: 200px;
+
+  .mat-nav-list a.active {
+    color: mat-color($primary);
+  }
 }
 
 .sidenav .mat-toolbar {
@@ -36,7 +45,7 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      border: 2px solid white;
+      border: 2px solid mat-color($accent);
     }
   }
 }
