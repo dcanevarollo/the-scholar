@@ -1,1 +1,31 @@
-<p>profile works!</p>
+<div appContainer maxWidth="500px" class="profile-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-card>
+      <mat-card-content>
+        <img [src]="user.avatarUrl" [alt]="user.name" />
+
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+          <mat-icon matSuffix>badge</mat-icon>
+          <mat-error>Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="email" />
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error>{{ emailError }}</mat-error>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="form.pristine || form.invalid"
+        >
+          Save
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

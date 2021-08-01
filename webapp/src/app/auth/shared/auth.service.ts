@@ -18,9 +18,9 @@ interface Auth {
 export class AuthService {
 
   private readonly API = `${environment.apiUrl}/auth`;
+  private innerUser: User | null = null;
 
   showNavEmitter = new EventEmitter<boolean>();
-  user: User | null = null;
   redirectUrl = '/dashboard';
 
   constructor(
@@ -30,14 +30,24 @@ export class AuthService {
   ) { }
 
   get isLoggedIn(): boolean {
-    if (!this.user) {
+    if (!this.innerUser) {
       const token = localStorage.getItem('@the-scholar/access-token');
-      let user = localStorage.getItem('@the-scholar/user');
+      const user = localStorage.getItem('@the-scholar/user');
 
-      if (token && user) this.user = JSON.parse(user);
+      if (token && user) this.innerUser = JSON.parse(user);
     }
 
-    return !!this.user;
+    return !!this.innerUser;
+  }
+
+  get user(): User | null {
+    return this.innerUser;
+  }
+
+  set user(user: User | null) {
+    this.innerUser = user;
+
+    if (user) localStorage.setItem('@the-scholar/user', JSON.stringify(user));
   }
 
   login(credentials: { email: string; password: string }): void {
@@ -49,7 +59,6 @@ export class AuthService {
           const { token, user } = response;
 
           localStorage.setItem('@the-scholar/access-token', token);
-          localStorage.setItem('@the-scholar/user', JSON.stringify(user));
 
           this.user = user;
           this.showNavEmitter.emit(true);
