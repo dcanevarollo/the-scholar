@@ -11,15 +11,15 @@
     <mat-nav-list>
       <h3 matSubheader>Your content</h3>
 
-      <a mat-list-item routerLink="files">
-        <mat-icon matListIcon>folder</mat-icon>
-        <h3 matLine>Files</h3>
-        <p matLine>Your stored files</p>
-      </a>
-      <a mat-list-item routerLink="courses">
-        <mat-icon matListIcon>school</mat-icon>
-        <h3 matLine>Courses</h3>
-        <p matLine>Courses you teach</p>
+      <a
+        mat-list-item
+        *ngFor="let link of links"
+        [routerLink]="link.route"
+        routerLinkActive="active"
+      >
+        <mat-icon matListIcon>{{ link.icon }}</mat-icon>
+        <h3 matLine>{{ link.title }}</h3>
+        <p matLine>{{ link.subtitle }}</p>
       </a>
     </mat-nav-list>
   </mat-sidenav>
@@ -41,7 +41,7 @@
           <img [src]="user?.avatarUrl" [alt]="user?.name" />
         </div>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item routerLink="profile">
+          <button mat-menu-item routerLink="users/profile">
             <mat-icon>person</mat-icon>
             <span>Edit Profile</span>
           </button>
