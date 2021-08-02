@@ -1,9 +1,14 @@
-<div appContainer maxWidth="500px" class="profile-container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<div appContainer maxWidth="900px" class="profile-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex-1">
     <mat-card>
-      <mat-card-content>
-        <img [src]="user.avatarUrl" [alt]="user.name" />
+      <mat-card-header>
+        <mat-card-title>Change profile</mat-card-title>
+        <mat-card-subtitle>
+          Change your name and/or your e-mail
+        </mat-card-subtitle>
+      </mat-card-header>
 
+      <mat-card-content>
         <mat-form-field>
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" />
@@ -28,4 +33,7 @@
       </mat-card-content>
     </mat-card>
   </form>
+
+  <br />
+  <app-change-password class="flex-1"></app-change-password>
 </div>
