@@ -1,0 +1,13 @@
+<div appContainer>
+  <h1>Courses</h1>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let course of courses$ | async">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <strong>{{ course.name }}</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
