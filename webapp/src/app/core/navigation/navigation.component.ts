@@ -28,16 +28,16 @@ const LINKS: Link[] = [
     subtitle: 'Activity summary'
   },
   {
-    route: 'files',
-    icon: 'folder',
-    title: 'Files',
-    subtitle: 'Your stored files'
-  },
-  {
     route: 'courses',
     icon: 'school',
     title: 'Courses',
     subtitle: 'Courses you teach'
+  },
+  {
+    route: 'files',
+    icon: 'folder',
+    title: 'Files',
+    subtitle: 'Your stored files'
   }
 ];
 

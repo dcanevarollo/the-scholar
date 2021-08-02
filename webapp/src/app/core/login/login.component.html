@@ -1,4 +1,9 @@
-<div appContainer maxWidth="400px" class="login-container">
+<div
+  appContainer
+  maxWidth="400px"
+  class="login-container"
+  [disablePadding]="false"
+>
   <h1 class="mat-display-2">The <strong>Scholar</strong></h1>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
