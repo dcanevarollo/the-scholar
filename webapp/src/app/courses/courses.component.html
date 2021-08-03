@@ -1,5 +1,9 @@
 <div appContainer>
-  <h1>Courses</h1>
+  <app-header
+    title="Courses"
+    subtitle="Courses you teach"
+    icon="school"
+  ></app-header>
 
   <mat-grid-list cols="3" gutterSize="16px">
     <mat-grid-tile *ngFor="let course of courses$ | async">

@@ -8,19 +8,25 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { ContainerDirective } from './container.directive';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
-    ContainerDirective
+    ContainerDirective,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDividerModule,
+    MatIconModule
   ],
   exports: [
     ContainerDirective,
+    HeaderComponent,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,

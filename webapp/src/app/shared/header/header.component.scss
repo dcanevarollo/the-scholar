@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  div {
+    h2 {
+      margin-bottom: 0;
+    }
+
+    p {
+      margin-bottom: 5px;
+    }
+  }
+
+  .mat-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.material-icons {
+      font-size: 40px;
+      line-height: unset;
+    }
+  }
+}
+
+.mat-divider {
+  margin-bottom: 20px;
+}
