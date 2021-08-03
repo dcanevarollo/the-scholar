@@ -7,6 +7,7 @@ import { CoursesRoutingModule } from './courses-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { CoursesComponent } from './courses.component';
 import { CoursesService } from './courses.service';
+import { StudentsModule } from './students/students.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { CoursesService } from './courses.service';
     CommonModule,
     CoursesRoutingModule,
     SharedModule,
+    StudentsModule,
     MatGridListModule,
     MatRippleModule
   ],

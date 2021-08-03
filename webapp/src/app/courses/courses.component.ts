@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CoursesService } from './courses.service';
 import { Course } from './shared/course.model';
+import { StudentsComponent } from './students/students.component';
 
 @Component({
   selector: 'app-courses',
@@ -14,7 +16,7 @@ export class CoursesComponent implements OnInit {
 
   courses$?: Observable<Course[]>;
 
-  constructor(private service: CoursesService) { }
+  constructor(private service: CoursesService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.courses$ = this.service
@@ -24,6 +26,14 @@ export class CoursesComponent implements OnInit {
           (c1, c2) => c1.name.localeCompare(c2.name)
         ))
       );
+  }
+
+  viewStudents(course: Course): void {
+    this.matDialog.open(StudentsComponent, {
+      width: '500px',
+      maxHeight: '450px',
+      data: { course }
+    });
   }
 
 }
