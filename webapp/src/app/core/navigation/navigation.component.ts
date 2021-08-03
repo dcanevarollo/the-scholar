@@ -8,10 +8,11 @@ import {
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable, Subscription } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, take } from 'rxjs/operators';
 
 import { AuthService } from 'src/app/auth/shared/auth.service';
 import { User } from '../../users/shared/user.model';
+import { DialogService } from 'src/app/shared/dialog/dialog.service';
 
 interface Link {
   route: string;
@@ -57,7 +58,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialogService: DialogService
   ) { }
 
   get user(): User {
@@ -82,7 +84,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   onLogout(): void {
-    this.authService.logout();
+    this.dialogService
+      .showDialog('Are you sure you want to sign out?')
+      .pipe(take(1))
+      .subscribe(confirmed => confirmed && this.authService.logout());
   }
 
   ngOnDestroy(): void {
