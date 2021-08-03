@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 
 export class CrudService<E, I> {
 
-  private readonly RETRIALS_COUNT = 1;
+  protected readonly RETRIALS_COUNT = 1;
   protected readonly API = `${environment.apiUrl}/${this.route}`;
 
   constructor(protected httpClient: HttpClient, private route: string) { }
