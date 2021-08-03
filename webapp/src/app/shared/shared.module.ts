@@ -9,20 +9,25 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { ContainerDirective } from './container.directive';
 import { HeaderComponent } from './header/header.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
     ContainerDirective,
-    HeaderComponent
+    HeaderComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,
     MatSnackBarModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [
     ContainerDirective,
@@ -34,7 +39,8 @@ import { HeaderComponent } from './header/header.component';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }
