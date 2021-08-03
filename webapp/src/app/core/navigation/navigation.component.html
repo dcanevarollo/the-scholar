@@ -37,7 +37,12 @@
       <div class="toolbar-content">
         <span>The <strong>Scholar</strong></span>
 
-        <div matRipple class="avatar" [matMenuTriggerFor]="menu">
+        <div
+          matRipple
+          class="avatar"
+          matTooltip="Profile options"
+          [matMenuTriggerFor]="menu"
+        >
           <img [src]="user?.avatarUrl" [alt]="user?.name" />
         </div>
         <mat-menu #menu="matMenu">
