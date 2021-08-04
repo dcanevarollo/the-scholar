@@ -1,10 +1,8 @@
-<h1 mat-dialog-title>{{ data.course.name }}</h1>
+<h2 mat-dialog-title>{{ data.course.name }} students enrolled</h2>
 <div mat-dialog-content>
-  <h3 matSubheader>Students enrolled</h3>
-
   <mat-list>
     <mat-list-item *ngFor="let student of students">
-      <mat-icon matListIcon>person</mat-icon>
+      <div matListAvatar class="app-avatar">{{ student.name[0] }}</div>
       <h3 matLine>{{ student.name }}</h3>
       <p matLine>{{ student.email }}</p>
     </mat-list-item>

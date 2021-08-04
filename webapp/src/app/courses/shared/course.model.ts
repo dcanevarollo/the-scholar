@@ -6,7 +6,6 @@ export class Course {
     public id: string,
     public name: string,
     public description: string,
-    public exercises: number,
     public hours: number,
     public students: Student[]
   ) { }

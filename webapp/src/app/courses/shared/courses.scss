@@ -1,0 +1,14 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+
+$accent: mat-palette($mat-amber, A400);
+
+.app-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: mat-color($accent);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}

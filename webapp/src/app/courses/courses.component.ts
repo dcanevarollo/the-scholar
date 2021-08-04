@@ -5,12 +5,14 @@ import { map } from 'rxjs/operators';
 
 import { CoursesService } from './courses.service';
 import { Course } from './shared/course.model';
-import { StudentsComponent } from './students/students.component';
+import {
+  StudentsEnrolledComponent
+} from './students/students-enrolled/students-enrolled.component';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss']
+  styleUrls: ['./courses.component.scss', './shared/courses.scss']
 })
 export class CoursesComponent implements OnInit {
 
@@ -29,7 +31,7 @@ export class CoursesComponent implements OnInit {
   }
 
   viewStudents(course: Course): void {
-    this.matDialog.open(StudentsComponent, {
+    this.matDialog.open(StudentsEnrolledComponent, {
       width: '500px',
       maxHeight: '450px',
       data: { course }
