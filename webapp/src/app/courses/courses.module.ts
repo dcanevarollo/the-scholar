@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatRippleModule } from '@angular/material/core';
 
 import { CoursesRoutingModule } from './courses-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -19,8 +18,7 @@ import { StudentsModule } from './students/students.module';
     CoursesRoutingModule,
     SharedModule,
     StudentsModule,
-    MatGridListModule,
-    MatRippleModule
+    MatGridListModule
   ],
   providers: [
     CoursesService

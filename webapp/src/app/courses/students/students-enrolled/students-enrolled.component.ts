@@ -1,19 +1,20 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Course } from '../shared/course.model';
-import { Student } from './shared/student.model';
+import { Course } from '../../shared/course.model';
+import { Student } from '../shared/student.model';
 
 @Component({
   selector: 'app-students',
-  templateUrl: './students.component.html'
+  templateUrl: './students-enrolled.component.html',
+  styleUrls: ['../../shared/courses.scss']
 })
-export class StudentsComponent implements OnInit {
+export class StudentsEnrolledComponent implements OnInit {
 
   students?: Student[];
 
   constructor(
-    public matDialogRef: MatDialogRef<StudentsComponent>,
+    public matDialogRef: MatDialogRef<StudentsEnrolledComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { course: Course }
   ) { }
 
