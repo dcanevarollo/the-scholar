@@ -1,5 +1,82 @@
 <div appContainer>
-  {{ course | json }}
+  <app-header [title]="title" [subtitle]="subtitle" icon="school"></app-header>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-horizontal-stepper linear>
+      <mat-step
+        formGroupName="step1"
+        label="Course Information"
+        [stepControl]="form.get('step1')!"
+      >
+        <div class="form-group">
+          <mat-form-field class="predominant">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput />
+            <mat-icon matSuffix>topic</mat-icon>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Duration</mat-label>
+            <input formControlName="hours" type="number" min="1" matInput />
+            <mat-icon matSuffix>schedule</mat-icon>
+            <mat-hint>Duration in hours (min. 1 hour)</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field hintLabel="Max. 255 characters">
+          <mat-label>Description</mat-label>
+          <textarea
+            formControlName="description"
+            rows="4"
+            maxlength="255"
+            matInput
+          ></textarea>
+          <mat-hint align="end">
+            {{ form.get("step1.description")?.value.length }} / 255
+          </mat-hint>
+        </mat-form-field>
+
+        <button
+          type="button"
+          mat-button
+          color="primary"
+          matStepperNext
+          [disabled]="form.get('step1')?.invalid"
+        >
+          Next
+        </button>
+      </mat-step>
+
+      <mat-step
+        formGroupName="step2"
+        label="Students Enrolled"
+        [stepControl]="form.get('step2')!"
+      >
+        <mat-list formArrayName="students">
+          <label id="students-label">Available students</label>
+          <mat-list-item
+            *ngFor="let control of studentsFormArray.controls; let i = index"
+          >
+            <mat-checkbox
+              [formControlName]="i"
+              aria-labelledby="students-label"
+            >
+              {{ students![i].name }}
+            </mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+
+        <button type="button" mat-button matStepperPrevious>Back</button>
+        <button
+          mat-button
+          color="accent"
+          matStepperNext
+          [disabled]="form.invalid"
+        >
+          Save
+        </button>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
 </div>
 
 <button
@@ -7,7 +84,7 @@
   color="primary"
   matTooltip="Return to courses list"
   matTooltipPosition="above"
-  (click)="return()"
+  (click)="back()"
 >
   <mat-icon>arrow_back</mat-icon>
 </button>

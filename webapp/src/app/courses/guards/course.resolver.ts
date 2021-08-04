@@ -11,9 +11,7 @@ export class CourseResolver implements Resolve<Course> {
   constructor(private service: CoursesService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<Course> {
-    if (route.params?.id) return this.service.loadById(route.params.id);
-
-    return of({} as Course);
+    return this.service.loadById(route.params.id, { '_embed': 'students' });
   }
 
 }
