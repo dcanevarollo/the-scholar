@@ -1,10 +1,9 @@
 .mat-card {
-  cursor: pointer;
   position: absolute;
-  top: 8px;
-  left: 8px;
-  right: 8px;
-  bottom: 8px;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
 
   .mat-card-content p {
     text-align: justify;
@@ -14,4 +13,10 @@
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
   }
+}
+
+.mat-fab {
+  position: fixed !important;
+  right: 40px;
+  bottom: 40px;
 }

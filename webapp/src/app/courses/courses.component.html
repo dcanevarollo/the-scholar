@@ -1,4 +1,4 @@
-<div appContainer>
+<div appContainer maxWidth="900px">
   <app-header
     title="Courses"
     subtitle="Courses you teach"
@@ -7,13 +7,9 @@
 
   <mat-grid-list cols="3" gutterSize="16px">
     <mat-grid-tile *ngFor="let course of courses$ | async">
-      <mat-card
-        tabindex="0"
-        matRipple
-        matTooltip="Click to view students enrolled"
-        (click)="viewStudents(course)"
-      >
+      <mat-card tabindex="0">
         <mat-card-header>
+          <div mat-card-avatar class="app-avatar">{{ course.name[0] }}</div>
           <mat-card-title>{{ course.name }}</mat-card-title>
           <mat-card-subtitle>
             {{ course.students.length }} students enrolled
@@ -25,10 +21,36 @@
         </mat-card-content>
 
         <mat-card-actions align="end">
-          <button mat-button>EDIT</button>
-          <button mat-button color="warn">REMOVE</button>
+          <button
+            mat-button
+            mat-icon-button
+            matTooltip="View students enrolled"
+            (click)="viewStudents(course)"
+          >
+            <mat-icon>people</mat-icon>
+          </button>
+          <button mat-button mat-icon-button matTooltip="Edit course">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-button
+            mat-icon-button
+            color="warn"
+            matTooltip="Remove course"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
+
+<button
+  mat-fab
+  color="primary"
+  matTooltip="Add a new course"
+  matTooltipPosition="above"
+>
+  <mat-icon>add</mat-icon>
+</button>
