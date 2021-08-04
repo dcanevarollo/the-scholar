@@ -10,7 +10,11 @@ import { UsersService } from '../users.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss', '../shared/users.scss']
+  styleUrls: [
+    './profile.component.scss',
+    '../shared/users.scss',
+    '../../shared/forms.scss'
+  ]
 })
 export class ProfileComponent implements OnInit {
 

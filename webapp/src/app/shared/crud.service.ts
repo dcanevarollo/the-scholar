@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -11,15 +11,15 @@ export class CrudService<E, I> {
 
   constructor(protected httpClient: HttpClient, private route: string) { }
 
-  list(): Observable<E[]> {
+  list(params?: HttpParams | Record<string, string>): Observable<E[]> {
     return this.httpClient
-      .get<E[]>(this.API)
+      .get<E[]>(this.API, { params })
       .pipe(take(this.RETRIALS_COUNT));
   }
 
-  loadById(id: I): Observable<E> {
+  loadById(id: I, params?: HttpParams | Record<string, string>): Observable<E> {
     return this.httpClient
-      .get<E>(`${this.API}/${id}`)
+      .get<E>(`${this.API}/${id}`, { params })
       .pipe(take(this.RETRIALS_COUNT));
   }
 

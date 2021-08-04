@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import {
   StudentsEnrolledComponent
 } from './students-enrolled/students-enrolled.component';
+import { StudentsService } from './students.service';
 
 
 @NgModule({
@@ -16,6 +17,9 @@ import {
     CommonModule,
     SharedModule,
     MatListModule
+  ],
+  providers: [
+    StudentsService
   ]
 })
 export class StudentsModule { }
