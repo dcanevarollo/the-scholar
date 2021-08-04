@@ -9,7 +9,8 @@ const routes: Routes = [
     children: [
       { path: 'profile', component: ProfileComponent }
     ]
-  }
+  },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

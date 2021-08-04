@@ -12,3 +12,9 @@ $accent: mat-palette($mat-amber, A400);
   font-size: 20px;
   font-weight: bold;
 }
+
+.mat-fab {
+  position: fixed !important;
+  right: 40px;
+  bottom: 40px;
+}
