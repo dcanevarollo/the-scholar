@@ -1,0 +1,29 @@
+.mat-form-field {
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .mat-form-field {
+    flex: 1;
+
+    &.predominant {
+      flex: 3;
+    }
+
+    &:first-of-type {
+      margin-right: 10px;
+    }
+
+    &:last-of-type {
+      margin-left: 10px;
+    }
+
+    &:not(:last-of-type):not(:first-of-type) {
+      margin: 0 10px;
+    }
+  }
+}

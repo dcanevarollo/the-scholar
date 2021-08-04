@@ -4,18 +4,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { CourseFormComponent } from './course-form/course-form.component';
 import { CoursesComponent } from './courses.component';
 import { CourseResolver } from './guards/course.resolver';
+import { StudentsResolver } from './students/guards/students.resolver';
 
 const routes: Routes = [
   { path: '', component: CoursesComponent },
   {
     path: 'new',
     component: CourseFormComponent,
-    resolve: { course: CourseResolver }
+    resolve: { students: StudentsResolver }
   },
   {
     path: 'edit/:id',
     component: CourseFormComponent,
-    resolve: { course: CourseResolver }
+    resolve: {
+      course: CourseResolver,
+      students: StudentsResolver
+    }
   },
   { path: '**', redirectTo: '' }
 ];
