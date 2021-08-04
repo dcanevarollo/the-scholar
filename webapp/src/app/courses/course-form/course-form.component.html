@@ -1,0 +1,13 @@
+<div appContainer>
+  {{ course | json }}
+</div>
+
+<button
+  mat-fab
+  color="primary"
+  matTooltip="Return to courses list"
+  matTooltipPosition="above"
+  (click)="return()"
+>
+  <mat-icon>arrow_back</mat-icon>
+</button>
