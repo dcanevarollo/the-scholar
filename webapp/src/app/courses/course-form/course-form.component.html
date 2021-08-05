@@ -13,12 +13,14 @@
             <mat-label>Name</mat-label>
             <input formControlName="name" matInput />
             <mat-icon matSuffix>topic</mat-icon>
+            <mat-error>Name is required</mat-error>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Duration</mat-label>
             <input formControlName="hours" type="number" min="1" matInput />
             <mat-icon matSuffix>schedule</mat-icon>
             <mat-hint>Duration in hours (min. 1 hour)</mat-hint>
+            <mat-error>{{ getError('step1.hours', 'Duration') }}</mat-error>
           </mat-form-field>
         </div>
 
@@ -33,6 +35,9 @@
           <mat-hint align="end">
             {{ form.get("step1.description")?.value.length }} / 255
           </mat-hint>
+          <mat-error>
+            {{ getError('step1.description', 'Description') }}
+          </mat-error>
         </mat-form-field>
 
         <button
@@ -51,6 +56,8 @@
         label="Students Enrolled"
         [stepControl]="form.get('step2')!"
       >
+        <p class="mat-small">This step is not required</p>
+
         <mat-list formArrayName="students">
           <label id="students-label">Available students</label>
           <mat-list-item

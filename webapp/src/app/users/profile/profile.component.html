@@ -1,5 +1,5 @@
 <div appContainer maxWidth="900px" class="profile-container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex-1">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="flex-1">
     <mat-card>
       <mat-card-header>
         <mat-card-title>Change profile</mat-card-title>
@@ -20,7 +20,7 @@
           <mat-label>E-mail</mat-label>
           <input matInput formControlName="email" />
           <mat-icon matSuffix>email</mat-icon>
-          <mat-error>{{ emailError }}</mat-error>
+          <mat-error>{{ getError('email', 'E-mail') }}</mat-error>
         </mat-form-field>
 
         <button

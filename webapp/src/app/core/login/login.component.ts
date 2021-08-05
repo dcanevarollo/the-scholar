@@ -2,25 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/auth/shared/auth.service';
+import { BaseFormComponent } from 'src/app/shared/base-form.component';
+import { SnackBarService } from 'src/app/shared/snack-bar.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss', '../../shared/forms.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends BaseFormComponent implements OnInit {
 
   hidePassword = true;
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
-
-  get emailError(): string {
-    const control = this.form.get('email');
-
-    if (control?.hasError('required')) return 'E-mail is required';
-
-    return control?.hasError('email') ? 'Not a valid e-mail' : '';
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    protected snackBarService: SnackBarService
+  ) {
+    super(snackBarService);
   }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.form.valid) this.authService.login(this.form.value);
+    this.authService.login(this.form.value);
   }
 
 }
