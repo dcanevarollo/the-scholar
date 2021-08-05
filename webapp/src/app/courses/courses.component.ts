@@ -1,9 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { AuthService } from '../auth/shared/auth.service';
+import { DialogService } from '../shared/dialog/dialog.service';
+import { SnackBarService } from '../shared/snack-bar.service';
 import { CoursesService } from './courses.service';
 import { Course } from './shared/course.model';
 import {
@@ -17,22 +20,25 @@ import {
 })
 export class CoursesComponent implements OnInit {
 
-  courses$?: Observable<Course[]>;
+  courses?: Course[];
 
   constructor(
     private service: CoursesService,
     private authService: AuthService,
+    private dialogService: DialogService,
+    private snackBarService: SnackBarService,
     private matDialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.courses$ = this.service
+    this.service
       .list({ '_embed': 'students', userId: this.authService.user!.id })
       .pipe(
         map(courses => courses.sort(
           (c1, c2) => c1.name.localeCompare(c2.name)
         ))
-      );
+      )
+      .subscribe(courses => this.courses = courses);
   }
 
   viewStudents(course: Course): void {
@@ -41,6 +47,23 @@ export class CoursesComponent implements OnInit {
       maxHeight: '450px',
       data: { course }
     });
+  }
+
+  onDelete(course: Course): void {
+    this.dialogService
+      .showDialog(`Delete "${course.name}"`)
+      .pipe(switchMap(confirmed => {
+        return confirmed ? this.service.remove(course.id) : EMPTY;
+      }))
+      .subscribe(
+        () => {
+          const index = this.courses?.findIndex(c => c.id === course.id);
+
+          this.courses?.splice(index!, 1);
+          this.snackBarService.showSuccess(`Course "${course.name}" deleted`);
+        },
+        (err: HttpErrorResponse) => this.snackBarService.showError(err.error)
+      );
   }
 
 }
