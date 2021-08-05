@@ -6,7 +6,7 @@
 >
   <h1 class="mat-display-2">The <strong>Scholar</strong></h1>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="submit()">
     <mat-card>
       <mat-card-header>
         <mat-card-title>Hi there!</mat-card-title>
@@ -18,7 +18,7 @@
           <mat-label>E-mail</mat-label>
           <input matInput formControlName="email" />
           <mat-icon matSuffix>email</mat-icon>
-          <mat-error>{{ emailError }}</mat-error>
+          <mat-error>{{ getError('email', 'E-mail') }}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -29,6 +29,9 @@
             [type]="hidePassword ? 'password' : 'text'"
           />
           <button
+            type="button"
+            tabindex="-1"
+            mat-button
             mat-icon-button
             matSuffix
             (click)="hidePassword = !hidePassword"

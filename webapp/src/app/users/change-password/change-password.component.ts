@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/auth/shared/auth.service';
+import { BaseFormComponent } from 'src/app/shared/base-form.component';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
 import { AppValidators } from 'src/app/shared/validators';
 import { UsersService } from '../users.service';
@@ -13,7 +14,7 @@ import { UsersService } from '../users.service';
   templateUrl: './change-password.component.html',
   styleUrls: ['../shared/users.scss', '../../shared/forms.scss']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent extends BaseFormComponent implements OnInit {
 
   private visibilityControls?: Record<string, boolean>;
 
@@ -22,23 +23,11 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private service: UsersService,
     private authService: AuthService,
-    private snackBarService: SnackBarService,
     private location: Location,
-    private fb: FormBuilder
-  ) { }
-
-  get newPasswordError(): string {
-    const control = this.form.get('newPassword');
-
-    if (control?.hasError('required')) return 'New password is required';
-
-    if (control?.hasError('minlength')) {
-      const { requiredLength } = control?.errors?.minlength;
-
-      return `Passwords must have at least ${requiredLength} characters`;
-    }
-
-    return '';
+    private fb: FormBuilder,
+    protected snackBarService: SnackBarService
+  ) {
+    super(snackBarService);
   }
 
   ngOnInit(): void {
@@ -47,7 +36,7 @@ export class ChangePasswordComponent implements OnInit {
       newPassword: ['', [Validators.required, Validators.minLength(4)]],
       confirmNewPassword: ['', [
         Validators.required,
-        AppValidators.equalsTo('newPassword')
+        AppValidators.equalsTo('newPassword', 'Passwords')
       ]]
     });
 
@@ -67,22 +56,20 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.form.valid) {
-      const { value: data } = this.form;
-      delete data.confirmNewPassword;
+    const { value: data } = this.form;
+    delete data.confirmNewPassword;
 
-      const { id } = this.authService.user!;
+    const { id } = this.authService.user!;
 
-      this.service
-        .changePassword(data, id)
-        .subscribe(
-          () => {
-            this.snackBarService.showSuccess('Password updated');
-            this.location.back();
-          },
-          (err: HttpErrorResponse) => this.snackBarService.showError(err.error)
-        );
-    }
+    this.service
+      .changePassword(data, id)
+      .subscribe(
+        () => {
+          this.snackBarService.showSuccess('Password updated');
+          this.location.back();
+        },
+        (err: HttpErrorResponse) => this.snackBarService.showError(err.error)
+      );
   }
 
 }
