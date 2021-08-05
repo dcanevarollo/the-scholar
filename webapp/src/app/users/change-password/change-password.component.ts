@@ -14,7 +14,10 @@ import { UsersService } from '../users.service';
   templateUrl: './change-password.component.html',
   styleUrls: ['../shared/users.scss', '../../shared/forms.scss']
 })
-export class ChangePasswordComponent extends BaseFormComponent implements OnInit {
+export class ChangePasswordComponent
+  extends BaseFormComponent
+  implements OnInit
+{
 
   private visibilityControls?: Record<string, boolean>;
 

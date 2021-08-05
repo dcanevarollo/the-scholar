@@ -8,7 +8,7 @@ import {
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable, Subscription } from 'rxjs';
-import { map, shareReplay, take } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 import { AuthService } from 'src/app/auth/shared/auth.service';
 import { User } from '../../users/shared/user.model';
@@ -85,8 +85,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   onLogout(): void {
     this.dialogService
-      .showDialog('Are you sure you want to sign out?')
-      .pipe(take(1))
+      .showDialog('Sign Out', 'Are you sure you want to leave now?')
       .subscribe(confirmed => confirmed && this.authService.logout());
   }
 

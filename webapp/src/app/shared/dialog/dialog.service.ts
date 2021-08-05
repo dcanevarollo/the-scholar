@@ -15,7 +15,7 @@ export class DialogService {
 
   constructor(private matDialog: MatDialog) { }
 
-  showDialog(message = 'Are you sure?', title?: string): Observable<boolean> {
+  showDialog(title?: string, message = 'Are you sure? This can\'t be undone!'): Observable<boolean> {
     const dialogRef = this.matDialog.open(DialogComponent, {
       width: '250px',
       data: { title, message }
@@ -26,7 +26,7 @@ export class DialogService {
       .pipe(take(1))
       .subscribe(result => this.result$?.next(result));
 
-    return this.result$.asObservable();
+    return this.result$.asObservable().pipe(take(1));
   }
 
 }
