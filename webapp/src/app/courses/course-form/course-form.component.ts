@@ -11,6 +11,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 
 import { AuthService } from 'src/app/auth/shared/auth.service';
+import { BaseFormComponent } from 'src/app/shared/base-form.component';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
 import { CoursesService } from '../courses.service';
 import { Course } from '../shared/course.model';
@@ -25,20 +26,22 @@ import { Student } from '../students/shared/student.model';
     '../../shared/forms.scss'
   ]
 })
-export class CourseFormComponent implements OnInit {
+export class CourseFormComponent extends BaseFormComponent implements OnInit {
 
   form!: FormGroup;
   course?: Course;
   students!: Student[];
 
   constructor(
+    protected snackBarService: SnackBarService,
     private service: CoursesService,
     private authService: AuthService,
-    private snackBarService: SnackBarService,
     private location: Location,
     private route: ActivatedRoute,
     private fb: FormBuilder
-  ) { }
+  ) {
+    super(snackBarService);
+  }
 
   get title(): string {
     return this.course ? `Edit ${this.course.name}` : 'New course';
@@ -69,7 +72,7 @@ export class CourseFormComponent implements OnInit {
           Validators.required,
           Validators.maxLength(255)
         ]],
-        hours: [this.course?.hours, [Validators.required, Validators.min(1)]],
+        hours: [this.course?.hours, [Validators.required, Validators.min(3)]],
       }),
       step2: this.fb.group({
         students: this.buildStudents(this.course?.students)
@@ -77,28 +80,26 @@ export class CourseFormComponent implements OnInit {
     });
   }
 
-  submit(): void {
-    if (this.form.valid) {
-      const { step1, step2 } = this.form.value;
+  onSubmit(): void {
+    const { step1, step2 } = this.form.value;
 
-      const data = { ...step1, ...step2 };
+    const data = { ...step1, ...step2 };
 
-      data.students = data.students
-        .map((v: boolean, i: number) => v ? this.students[i] : null)
-        .filter((s: Student) => !!s);
+    data.students = data.students
+      .map((v: boolean, i: number) => v ? this.students[i] : null)
+      .filter((s: Student) => !!s);
 
-      this.service
-        .save(data, data.id)
-        .subscribe(
-          (course) => {
-            const goal = data.id ? 'updated' : 'created';
+    this.service
+      .save(data, data.id)
+      .subscribe(
+        (course) => {
+          const goal = data.id ? 'updated' : 'created';
 
-            this.snackBarService.showSuccess(`Course "${course.name}" ${goal}`);
-            this.back();
-          },
-          (err: HttpErrorResponse) => this.snackBarService.showError(err.error)
-        );
-    }
+          this.snackBarService.showSuccess(`Course "${course.name}" ${goal}`);
+          this.back();
+        },
+        (err: HttpErrorResponse) => this.snackBarService.showError(err.error)
+      );
   }
 
   back(): void {
