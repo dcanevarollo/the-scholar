@@ -1,4 +1,4 @@
-import { Student } from "../students/shared/student.model";
+import { Student } from "../../students/shared/student.model";
 
 export class Course {
 

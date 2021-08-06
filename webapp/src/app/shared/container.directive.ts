@@ -12,7 +12,6 @@ export class ContainerDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.elementRef.nativeElement.style.maxWidth = this.maxWidth;
-    this.elementRef.nativeElement.style.height = '100%';
     this.elementRef.nativeElement.style.margin = '0 auto';
 
     if (this.noPadding !== '')

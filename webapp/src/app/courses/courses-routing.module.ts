@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CourseFormComponent } from './course-form/course-form.component';
 import { CoursesComponent } from './courses.component';
 import { CourseResolver } from './guards/course.resolver';
-import { StudentsResolver } from './students/guards/students.resolver';
+import { StudentsResolver } from '../students/guards/students.resolver';
 
 const routes: Routes = [
   { path: '', component: CoursesComponent },

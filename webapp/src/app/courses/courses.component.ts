@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AuthService } from '../auth/shared/auth.service';
@@ -11,12 +11,16 @@ import { CoursesService } from './courses.service';
 import { Course } from './shared/course.model';
 import {
   StudentsEnrolledComponent
-} from './students/students-enrolled/students-enrolled.component';
+} from '../students/students-enrolled/students-enrolled.component';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss', './shared/courses.scss']
+  styleUrls: [
+    './courses.component.scss',
+    './courses.scss',
+    '../shared/avatars.scss'
+  ]
 })
 export class CoursesComponent implements OnInit {
 

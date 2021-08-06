@@ -1,0 +1,51 @@
+@import "~@angular/material/theming";
+
+$primary: mat-palette($mat-deep-purple, 500, A200);
+$accent: mat-palette($mat-amber, A200);
+
+header {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(mat-color($primary), mat-color($primary, A200));
+  color: white;
+}
+
+.cards {
+  position: relative;
+  top: -100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .mat-card {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    border: 5px solid mat-color($accent);
+    border-radius: 10px;
+
+    &:first-of-type {
+      margin-right: 10px;
+    }
+
+    &:last-of-type {
+      margin-left: 10px;
+    }
+
+    .mat-icon {
+      width: 100%;
+      height: 50px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.material-icons {
+        font-size: 50px;
+        line-height: unset;
+      }
+    }
+  }
+}

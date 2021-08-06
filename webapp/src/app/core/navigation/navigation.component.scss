@@ -1,14 +1,13 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
-$accent: mat-palette($mat-amber, A400);
-$primary: mat-palette($mat-deep-purple, A400);
+$primary: mat-palette($mat-deep-purple, 500);
 
 .sidenav-container {
   height: 100%;
 }
 
 .sidenav {
-  width: 200px;
+  width: 250px;
 
   .mat-nav-list a.active {
     color: mat-color($primary);
@@ -19,10 +18,15 @@ $primary: mat-palette($mat-deep-purple, A400);
   background: inherit;
 }
 
-.mat-toolbar.mat-primary {
+.mat-toolbar {
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.toolbar-brand {
+  display: flex;
+  justify-content: center;
 }
 
 .toolbar-content {
@@ -31,6 +35,8 @@ $primary: mat-palette($mat-deep-purple, A400);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 16px;
+  color: rgba($color: white, $alpha: 0.6);
 
   .avatar {
     width: 45px;
@@ -45,7 +51,6 @@ $primary: mat-palette($mat-deep-purple, A400);
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      border: 2px solid mat-color($accent);
     }
   }
 }
