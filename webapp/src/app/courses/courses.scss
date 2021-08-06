@@ -1,0 +1,12 @@
+.mat-fab {
+  position: fixed !important;
+  right: 40px;
+
+  &:first-of-type {
+    bottom: 120px;
+  }
+
+  &:last-of-type {
+    bottom: 40px;
+  }
+}

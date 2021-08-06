@@ -23,16 +23,22 @@ interface Link {
 
 const LINKS: Link[] = [
   {
-    route: 'dashboard',
-    icon: 'dashboard',
-    title: 'Dashboard',
-    subtitle: 'Activity summary'
+    route: 'home',
+    icon: 'home',
+    title: 'Home',
+    subtitle: 'Application homepage'
   },
   {
     route: 'courses',
     icon: 'school',
     title: 'Courses',
     subtitle: 'Courses you teach'
+  },
+  {
+    route: 'students',
+    icon: 'people',
+    title: 'Students',
+    subtitle: 'Students registered'
   },
   {
     route: 'files',
@@ -62,8 +68,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private dialogService: DialogService
   ) { }
 
-  get user(): User {
-    return this.authService.user!;
+  get user(): User | null {
+    return this.authService.user;
+  }
+
+  get firstName(): string | undefined {
+    return this.user?.name.split(' ')[0];
   }
 
   ngOnInit(): void {

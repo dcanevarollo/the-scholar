@@ -1,7 +1,6 @@
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~@angular/material/theming';
 
-$accent: mat-palette($mat-amber, A400);
+$accent: mat-palette($mat-amber, A200);
 
 .app-avatar {
   display: flex;
@@ -11,10 +10,4 @@ $accent: mat-palette($mat-amber, A400);
   color: white;
   font-size: 20px;
   font-weight: bold;
-}
-
-.mat-fab {
-  position: fixed !important;
-  right: 40px;
-  bottom: 40px;
 }

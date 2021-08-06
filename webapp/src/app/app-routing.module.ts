@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './auth/guards/auth.guard';
-import { DashboardComponent } from './core/dashboard/dashboard.component';
+import { HomeComponent } from './core/home/home.component';
 import { LoginGuard } from './core/guards/login.guard';
 import { LoginComponent } from './core/login/login.component';
 
@@ -15,14 +15,21 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'students',
+    loadChildren: () =>
+      import('./students/students.module').then(m => m.StudentsModule),
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard]
+  },
+  {
     path: 'users',
     loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
     canActivate: [AuthGuard],
     canLoad: [AuthGuard]
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: 'home',
+    component: HomeComponent,
     canActivate: [AuthGuard],
     canLoad: [AuthGuard]
   },
@@ -31,7 +38,7 @@ const routes: Routes = [
     component: LoginComponent,
     canActivate: [LoginGuard]
   },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({

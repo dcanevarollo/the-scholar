@@ -21,7 +21,7 @@ export class AuthService {
   private innerUser: User | null = null;
 
   showNavEmitter = new EventEmitter<boolean>();
-  redirectUrl = '/dashboard';
+  redirectUrl = '/home';
 
   constructor(
     private httpClient: HttpClient,
@@ -72,7 +72,7 @@ export class AuthService {
     localStorage.clear();
 
     this.user = null;
-    this.redirectUrl = '/dashboard';
+    this.redirectUrl = '/home';
     this.router.navigate(['/login']);
   }
 

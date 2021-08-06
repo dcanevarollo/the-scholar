@@ -17,7 +17,7 @@ export class DialogService {
 
   showDialog(title?: string, message = 'Are you sure? This can\'t be undone!'): Observable<boolean> {
     const dialogRef = this.matDialog.open(DialogComponent, {
-      width: '250px',
+      width: '300px',
       data: { title, message }
     });
 

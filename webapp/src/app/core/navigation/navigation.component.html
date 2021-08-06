@@ -35,7 +35,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <div class="toolbar-content">
-        <span>The <strong>Scholar</strong></span>
+        <span>Hi <strong>{{ firstName }}</strong>!</span>
 
         <div
           matRipple
@@ -43,7 +43,11 @@
           matTooltip="Profile options"
           [matMenuTriggerFor]="menu"
         >
-          <img [src]="user?.avatarUrl" [alt]="user?.name" />
+          <img
+            [src]="user?.avatarUrl"
+            [alt]="user?.name"
+            class="mat-elevation-z4"
+          />
         </div>
         <mat-menu #menu="matMenu">
           <button mat-menu-item routerLink="users/profile">

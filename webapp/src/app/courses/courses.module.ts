@@ -9,10 +9,10 @@ import { CoursesRoutingModule } from './courses-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { CoursesComponent } from './courses.component';
 import { CoursesService } from './courses.service';
-import { StudentsModule } from './students/students.module';
 import { CourseFormComponent } from './course-form/course-form.component';
 import { CourseResolver } from './guards/course.resolver';
-import { StudentsResolver } from './students/guards/students.resolver';
+import { StudentsResolver } from '../students/guards/students.resolver';
+import { StudentsService } from '../students/students.service';
 
 
 @NgModule({
@@ -24,7 +24,6 @@ import { StudentsResolver } from './students/guards/students.resolver';
     CommonModule,
     CoursesRoutingModule,
     SharedModule,
-    StudentsModule,
     MatGridListModule,
     MatStepperModule,
     MatListModule,
@@ -33,7 +32,8 @@ import { StudentsResolver } from './students/guards/students.resolver';
   providers: [
     CoursesService,
     CourseResolver,
-    StudentsResolver
+    StudentsResolver,
+    StudentsService
   ]
 })
 export class CoursesModule { }
