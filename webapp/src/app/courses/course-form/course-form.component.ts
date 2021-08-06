@@ -15,14 +15,14 @@ import { BaseFormComponent } from 'src/app/shared/base-form.component';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
 import { CoursesService } from '../courses.service';
 import { Course } from '../shared/course.model';
-import { Student } from '../students/shared/student.model';
+import { Student } from '../../students/shared/student.model';
 
 @Component({
   selector: 'app-course-form',
   templateUrl: './course-form.component.html',
   styleUrls: [
     './course-form.component.scss',
-    '../shared/courses.scss',
+    '../courses.scss',
     '../../shared/forms.scss'
   ]
 })

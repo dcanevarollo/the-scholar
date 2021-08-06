@@ -1,0 +1,13 @@
+<header>
+  <h1 class="mat-display-3">The <strong>Scholar</strong></h1>
+</header>
+
+<div class="cards">
+  <mat-card *ngFor="let card of cards">
+    <mat-card-content>
+      <mat-icon color="accent">{{ card.icon }}</mat-icon>
+      <h1>{{ card.title }}</h1>
+      <p>{{ card.text }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

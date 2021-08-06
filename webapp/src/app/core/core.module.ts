@@ -5,21 +5,20 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRippleModule } from '@angular/material/core';
 
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     NavigationComponent,
-    DashboardComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
@@ -29,13 +28,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    MatGridListModule,
     MatMenuModule,
     MatRippleModule
   ],
   exports: [
     NavigationComponent,
-    DashboardComponent
+    HomeComponent
   ]
 })
 export class CoreModule { }
