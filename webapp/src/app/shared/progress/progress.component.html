@@ -1,0 +1,18 @@
+<div *ngIf="!error" class="progress-container" [ngSwitch]="type">
+  <mat-progress-spinner
+    *ngSwitchCase="'spinner'"
+    [mode]="mode"
+    color="primary"
+  ></mat-progress-spinner>
+
+  <mat-progress-bar
+    *ngSwitchCase="'bar'"
+    [mode]="mode"
+    color="primary"
+  ></mat-progress-bar>
+</div>
+
+<div *ngIf="error" class="error-container">
+  <mat-icon color="warn">error_outline</mat-icon>
+  <p>We could not load what you want, we are so sorry!</p>
+</div>

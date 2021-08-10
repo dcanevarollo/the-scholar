@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatListModule } from '@angular/material/list';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { CoursesRoutingModule } from './courses-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -11,8 +12,7 @@ import { CoursesComponent } from './courses.component';
 import { CoursesService } from './courses.service';
 import { CourseFormComponent } from './course-form/course-form.component';
 import { CourseResolver } from './guards/course.resolver';
-import { StudentsResolver } from '../students/guards/students.resolver';
-import { StudentsService } from '../students/students.service';
+import { StudentsService } from '../students/shared/students.service';
 
 
 @NgModule({
@@ -27,12 +27,12 @@ import { StudentsService } from '../students/students.service';
     MatGridListModule,
     MatStepperModule,
     MatListModule,
-    MatCheckboxModule
+    MatAutocompleteModule,
+    MatExpansionModule,
   ],
   providers: [
     CoursesService,
     CourseResolver,
-    StudentsResolver,
     StudentsService
   ]
 })

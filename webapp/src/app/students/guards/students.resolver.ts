@@ -3,7 +3,7 @@ import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Student } from '../shared/student.model';
-import { StudentsService } from '../students.service';
+import { StudentsService } from '../shared/students.service';
 
 @Injectable()
 export class StudentsResolver implements Resolve<Student[]> {

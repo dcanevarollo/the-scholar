@@ -5,7 +5,11 @@
     icon="school"
   ></app-header>
 
-  <mat-grid-list cols="3" gutterSize="16px">
+  <mat-grid-list
+    *ngIf="courses$ | async as courses; else loading"
+    cols="3"
+    gutterSize="16px"
+  >
     <mat-grid-tile *ngFor="let course of courses">
       <mat-card tabindex="0">
         <mat-card-header>
@@ -50,6 +54,10 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
+
+  <ng-template #loading>
+    <app-progress type="bar" [error]="error$ | async"></app-progress>
+  </ng-template>
 </div>
 
 <button
