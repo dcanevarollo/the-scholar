@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EMPTY } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { EMPTY, Observable, Subject } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { AuthService } from '../auth/shared/auth.service';
 import { DialogService } from '../shared/dialog/dialog.service';
@@ -11,7 +11,7 @@ import { CoursesService } from './courses.service';
 import { Course } from './shared/course.model';
 import {
   StudentsEnrolledComponent
-} from '../students/students-enrolled/students-enrolled.component';
+} from '../students/shared/students-enrolled/students-enrolled.component';
 
 @Component({
   selector: 'app-courses',
@@ -24,7 +24,8 @@ import {
 })
 export class CoursesComponent implements OnInit {
 
-  courses?: Course[];
+  courses$?: Observable<Course[]>;
+  error$?: Subject<boolean>;
 
   constructor(
     private service: CoursesService,
@@ -35,14 +36,7 @@ export class CoursesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.service
-      .list({ '_embed': 'students', userId: this.authService.user!.id })
-      .pipe(
-        map(courses => courses.sort(
-          (c1, c2) => c1.name.localeCompare(c2.name)
-        ))
-      )
-      .subscribe(courses => this.courses = courses);
+    this.refresh();
   }
 
   viewStudents(course: Course): void {
@@ -56,17 +50,32 @@ export class CoursesComponent implements OnInit {
   onDelete(course: Course): void {
     this.dialogService
       .showDialog(`Delete "${course.name}"`)
-      .pipe(switchMap(confirmed => {
-        return confirmed ? this.service.remove(course.id) : EMPTY;
-      }))
+      .pipe(
+        switchMap(confirmed =>
+          confirmed ? this.service.remove(course.id) : EMPTY
+        )
+      )
       .subscribe(
-        () => {
-          const index = this.courses?.findIndex(c => c.id === course.id);
-
-          this.courses?.splice(index!, 1);
-          this.snackBarService.showSuccess(`Course "${course.name}" deleted`);
-        },
+        () => this.refresh(),
         (err: HttpErrorResponse) => this.snackBarService.showError(err.error)
+      );
+  }
+
+  private refresh(): void {
+    this.error$ = new Subject();
+
+    this.courses$ = this.service
+      .list({ userId: this.authService.user!.id })
+      .pipe(
+        map(courses => courses.sort(
+          (c1, c2) => c1.name.localeCompare(c2.name)
+        )),
+        catchError(() => {
+          this.snackBarService.showError('Could not load your courses');
+          this.error$?.next(true);
+
+          return EMPTY;
+        })
       );
   }
 

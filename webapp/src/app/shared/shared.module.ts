@@ -10,16 +10,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { ContainerDirective } from './container.directive';
 import { HeaderComponent } from './header/header.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { ProgressComponent } from './progress/progress.component';
 
 @NgModule({
   declarations: [
     ContainerDirective,
     HeaderComponent,
-    DialogComponent
+    DialogComponent,
+    ProgressComponent
   ],
   imports: [
     CommonModule,
@@ -27,11 +31,14 @@ import { DialogComponent } from './dialog/dialog.component';
     MatDividerModule,
     MatIconModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
   exports: [
     ContainerDirective,
     HeaderComponent,
+    ProgressComponent,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
