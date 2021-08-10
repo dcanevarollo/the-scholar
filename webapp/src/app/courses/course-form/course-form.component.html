@@ -2,7 +2,7 @@
   <app-header [title]="title" [subtitle]="subtitle" icon="school"></app-header>
 
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <mat-horizontal-stepper linear>
+    <mat-horizontal-stepper linear class="mat-elevation-z1">
       <mat-step
         formGroupName="step1"
         label="Course Information"
@@ -20,7 +20,7 @@
             <input formControlName="hours" type="number" min="1" matInput />
             <mat-icon matSuffix>schedule</mat-icon>
             <mat-hint>Duration in hours (min. 1 hour)</mat-hint>
-            <mat-error>{{ getError('step1.hours', 'Duration') }}</mat-error>
+            <mat-error>{{ getError("step1.hours", "Duration") }}</mat-error>
           </mat-form-field>
         </div>
 
@@ -36,7 +36,7 @@
             {{ form.get("step1.description")?.value.length }} / 255
           </mat-hint>
           <mat-error>
-            {{ getError('step1.description', 'Description') }}
+            {{ getError("step1.description", "Description") }}
           </mat-error>
         </mat-form-field>
 
@@ -56,21 +56,42 @@
         label="Students Enrolled"
         [stepControl]="form.get('step2')!"
       >
-        <p class="mat-small">This step is not required</p>
+        <p class="mat-small">
+          Search for students to enroll them in this course
+        </p>
 
-        <mat-list formArrayName="students">
-          <label id="students-label">Available students</label>
-          <mat-list-item
-            *ngFor="let control of studentsFormArray.controls; let i = index"
+        <mat-form-field>
+          <mat-label>Search students</mat-label>
+          <input
+            placeholder="Student name"
+            [formControl]="query"
+            matInput
+            [matAutocomplete]="auto"
+          />
+          <mat-icon *ngIf="!query.value" matSuffix>search</mat-icon>
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            [displayWith]="displayStudent"
+            (optionSelected)="selectStudent($event)"
           >
-            <mat-checkbox
-              [formControlName]="i"
-              aria-labelledby="students-label"
+            <mat-option
+              *ngFor="let student of students$ | async"
+              [value]="student"
             >
-              {{ students![i].name }}
-            </mat-checkbox>
-          </mat-list-item>
-        </mat-list>
+              <span>{{ student.name }}</span> |
+              <small>{{ student.email }}</small>
+            </mat-option>
+          </mat-autocomplete>
+          <button
+            *ngIf="query.value"
+            (click)="query.setValue('')"
+            mat-button
+            mat-icon-button
+            matSuffix
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
 
         <button type="button" mat-button matStepperPrevious>Back</button>
         <button
@@ -83,6 +104,42 @@
         </button>
       </mat-step>
     </mat-horizontal-stepper>
+
+    <mat-accordion
+      *ngIf="form.get('step2.students')!.value?.length > 0"
+      class="mat-elevation-z1"
+    >
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ form.get("step2.students")!.value?.length }} students selected
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-selection-list #selectedStudents multiple>
+          <mat-list-option
+            *ngFor="let student of form.get('step2.students')!.value"
+            [value]="student"
+          >
+            <div matListAvatar class="app-avatar">{{ student.name[0] }}</div>
+            <h3 matLine>{{ student.name }}</h3>
+            <p matLine>{{ student.email }}</p>
+          </mat-list-option>
+        </mat-selection-list>
+
+        <mat-action-row>
+          <button
+            mat-button
+            type="button"
+            color="warn"
+            (click)="removeStudents(selectedStudents.selectedOptions.selected)"
+            [disabled]="selectedStudents.selectedOptions.selected.length <= 0"
+          >
+            REMOVE
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
   </form>
 </div>
 

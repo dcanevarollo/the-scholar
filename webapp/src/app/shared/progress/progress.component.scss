@@ -1,0 +1,17 @@
+.progress-container,
+.error-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.error-container {
+  height: 50vh;
+  flex-direction: column;
+
+  .mat-icon {
+    margin-bottom: 20px;
+  }
+}
