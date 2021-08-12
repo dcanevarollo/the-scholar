@@ -18,8 +18,8 @@ import {
   templateUrl: './courses.component.html',
   styleUrls: [
     './courses.component.scss',
-    './courses.scss',
-    '../shared/avatars.scss'
+    '../shared/avatars.scss',
+    '../shared/back-button/back-button.component.scss'
   ]
 })
 export class CoursesComponent implements OnInit {

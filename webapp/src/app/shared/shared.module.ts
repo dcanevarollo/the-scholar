@@ -17,13 +17,15 @@ import { ContainerDirective } from './container.directive';
 import { HeaderComponent } from './header/header.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { ProgressComponent } from './progress/progress.component';
+import { BackButtonComponent } from './back-button/back-button.component';
 
 @NgModule({
   declarations: [
     ContainerDirective,
     HeaderComponent,
     DialogComponent,
-    ProgressComponent
+    ProgressComponent,
+    BackButtonComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,7 @@ import { ProgressComponent } from './progress/progress.component';
     ContainerDirective,
     HeaderComponent,
     ProgressComponent,
+    BackButtonComponent,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
