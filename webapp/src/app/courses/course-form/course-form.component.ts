@@ -32,7 +32,6 @@ import { StudentsService } from 'src/app/students/shared/students.service';
   templateUrl: './course-form.component.html',
   styleUrls: [
     './course-form.component.scss',
-    '../courses.scss',
     '../../shared/forms.scss',
     '../../shared/avatars.scss'
   ]
@@ -101,10 +100,6 @@ export class CourseFormComponent extends BaseFormComponent implements OnInit {
       );
   }
 
-  back(): void {
-    this.location.back();
-  }
-
   displayStudent(student: Student): string {
     return student && student.name ? student.name : '';
   }
@@ -146,7 +141,7 @@ export class CourseFormComponent extends BaseFormComponent implements OnInit {
           const goal = data.id ? 'updated' : 'created';
 
           this.snackBarService.showSuccess(`Course "${course.name}" ${goal}`);
-          this.back();
+          this.location.back();
         },
         (err: HttpErrorResponse) => this.snackBarService.showError(err.error)
       );
