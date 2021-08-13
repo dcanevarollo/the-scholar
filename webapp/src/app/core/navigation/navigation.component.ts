@@ -41,9 +41,9 @@ const LINKS: Link[] = [
     subtitle: 'Students registered'
   },
   {
-    route: 'files',
+    route: 'archives',
     icon: 'folder',
-    title: 'Files',
+    title: 'Archives',
     subtitle: 'Your stored files'
   }
 ];
