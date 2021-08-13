@@ -137,7 +137,7 @@ export class CourseFormComponent extends BaseFormComponent implements OnInit {
     this.service
       .save(data, data.id)
       .subscribe(
-        (course) => {
+        course => {
           const goal = data.id ? 'updated' : 'created';
 
           this.snackBarService.showSuccess(`Course "${course.name}" ${goal}`);

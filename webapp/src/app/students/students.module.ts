@@ -14,6 +14,7 @@ import { StudentsComponent } from './students.component';
 import { StudentsRoutingModule } from './students-routing.module';
 import { StudentFormComponent } from './student-form/student-form.component';
 import { StudentResolver } from './guards/student.resolver';
+import { CoursesService } from '../courses/courses.service';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { StudentResolver } from './guards/student.resolver';
   ],
   providers: [
     StudentsService,
-    StudentResolver
+    StudentResolver,
+    CoursesService
   ],
   exports: [
     StudentsEnrolledComponent
