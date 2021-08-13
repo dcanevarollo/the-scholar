@@ -1,0 +1,37 @@
+<div appContainer>
+  <app-header
+    title="Archives"
+    subtitle="Manage your stored files"
+    icon="folder"
+  ></app-header>
+
+  <mat-card>
+    <mat-card-content>
+      <button mat-button routerLink="new">STORE FILE</button>
+
+      <mat-list>
+        <mat-list-item *ngFor="let archive of archives; else: loading">
+          <button mat-button mat-icon-button (click)="onDownload(archive)">
+            <mat-icon>download</mat-icon>
+          </button>
+          <button
+            mat-button
+            mat-icon-button
+            color="warn"
+            (click)="onDelete(archive)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+
+          <mat-icon matListIcon>text_snippet</mat-icon>
+          <h3 matLine>{{ archive.name }}</h3>
+          <p matLine>{{ archive.formattedDate }} -- {{ archive.type }}</p>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <ng-template #loading>
+    <app-progress type="bar" [error]="error$ | async"></app-progress>
+  </ng-template>
+</div>
