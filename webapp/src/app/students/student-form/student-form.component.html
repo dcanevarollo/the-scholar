@@ -1,5 +1,43 @@
-<div appContainer>
+<div appContainer maxWidth="500px">
   <app-header [title]="title" [subtitle]="subtitle" icon="people"></app-header>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+          <mat-icon matSuffix>badge</mat-icon>
+          <mat-error>Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>E-mail</mat-label>
+          <input matInput formControlName="email" />
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error>{{ getError("email", "E-mail") }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Course</mat-label>
+          <mat-select formControlName="courseId">
+            <mat-option
+              *ngFor="let course of courses$ | async"
+              [value]="course.id"
+            >
+              {{ course.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-button color="accent" [disabled]="form.invalid">
+          SAVE
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
 </div>
 
 <app-back-button></app-back-button>

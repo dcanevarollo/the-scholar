@@ -65,7 +65,7 @@ export class CoursesComponent implements OnInit {
     this.error$ = new Subject();
 
     this.courses$ = this.service
-      .list({ userId: this.authService.user!.id })
+      .list({ '_embed': 'students', userId: this.authService.user!.id })
       .pipe(
         map(courses => courses.sort(
           (c1, c2) => c1.name.localeCompare(c2.name)
