@@ -22,6 +22,13 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'archives',
+    loadChildren: () =>
+      import('./archives/archives.module').then(m => m.ArchivesModule),
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard]
+  },
+  {
     path: 'users',
     loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
     canActivate: [AuthGuard],
