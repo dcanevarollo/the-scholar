@@ -52,7 +52,8 @@ import { BackButtonComponent } from './back-button/back-button.component';
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressBarModule
   ]
 })
 export class SharedModule { }
