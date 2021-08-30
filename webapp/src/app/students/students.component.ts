@@ -1,11 +1,13 @@
 import { SelectionModel } from '@angular/cdk/collections';
+import { HttpErrorResponse } from '@angular/common/http';
 import {  Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subject } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { EMPTY, Subject } from 'rxjs';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 
+import { DialogService } from '../shared/dialog/dialog.service';
 import { SnackBarService } from '../shared/snack-bar.service';
 import { Student } from './shared/student.model';
 import { StudentsService } from './shared/students.service';
@@ -28,7 +30,8 @@ export class StudentsComponent implements OnInit {
 
   constructor(
     private service: StudentsService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -50,8 +53,22 @@ export class StudentsComponent implements OnInit {
   }
 
   onDelete(): void {
-    // TODO : delete logic
-    console.log(`Removing "${this.selection.selected[0].name}"`);
+    const student = this.selection.selected[0];
+
+    this.dialogService
+      .showDialog(`Remove "${student.name}"`)
+      .pipe(
+        switchMap(confirmed =>
+          confirmed ? this.service.remove(student.id) : EMPTY
+        )
+      )
+      .subscribe(
+        () => {
+          this.snackBarService.showSuccess(`Student "${student.name}" removed`);
+          this.refresh();
+        },
+        (err: HttpErrorResponse) => this.snackBarService.showError(err.error)
+      );
   }
 
   private refresh(): void {
