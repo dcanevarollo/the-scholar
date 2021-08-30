@@ -35,7 +35,7 @@ export class ArchivesComponent implements OnInit {
           return 0;
         })),
         map(archives => archives.map(archive => {
-          const formattedDate = moment.unix(archive.createdAt).format('LL');
+          const formattedDate = moment(archive.createdAt).format('LL');
 
           return { ...archive, formattedDate };
         }))

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { ArchivesRoutingModule } from './archives-routing.module';
 import { ArchivesComponent } from './archives.component';
@@ -18,7 +19,8 @@ import { UploadComponent } from './upload/upload.component';
     CommonModule,
     SharedModule,
     ArchivesRoutingModule,
-    MatListModule
+    MatListModule,
+    MatChipsModule
   ],
   providers: [
     ArchivesService
