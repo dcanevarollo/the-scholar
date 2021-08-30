@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
@@ -12,7 +12,9 @@ import { ArchivesService } from './archives.service';
   selector: 'app-archives',
   templateUrl: './archives.component.html'
 })
-export class ArchivesComponent implements OnInit {
+export class ArchivesComponent implements OnInit, OnDestroy {
+
+  private subscription?: Subscription;
 
   archives?: Archive[];
   error$?: Subject<boolean>;
@@ -50,9 +52,14 @@ export class ArchivesComponent implements OnInit {
   }
 
   onDownload(archive: Archive): void {
+    this.subscription = this.service.download(archive);
   }
 
   onDelete(archive: Archive): void {
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
 }
