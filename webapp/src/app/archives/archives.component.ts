@@ -1,12 +1,14 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { EMPTY, Subject, Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { AuthService } from '../auth/shared/auth.service';
 import { SnackBarService } from '../shared/snack-bar.service';
 import { Archive } from './archive.model';
 import { ArchivesService } from './archives.service';
+import { DialogService } from '../shared/dialog/dialog.service';
 
 @Component({
   selector: 'app-archives',
@@ -22,10 +24,40 @@ export class ArchivesComponent implements OnInit, OnDestroy {
   constructor(
     private service: ArchivesService,
     private authService: AuthService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
+    this.refresh();
+  }
+
+  onDownload(archive: Archive): void {
+    this.subscription = this.service.download(archive);
+  }
+
+  onDelete(archive: Archive): void {
+    this.dialogService
+      .showDialog(`Delete file "${archive.name}"`)
+      .pipe(
+        switchMap(confirmed =>
+          confirmed ? this.service.remove(archive.id) : EMPTY
+        )
+      )
+      .subscribe(
+        () => {
+          this.snackBarService.showSuccess(`File "${archive.name}" deleted`);
+          setTimeout(() => this.refresh(), 1500);
+        },
+        (err: HttpErrorResponse) => this.snackBarService.showError(err.error)
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
+  private refresh(): void {
     this.error$ = new Subject();
 
     this.service
@@ -49,17 +81,6 @@ export class ArchivesComponent implements OnInit, OnDestroy {
           this.error$?.next(true);
         }
       );
-  }
-
-  onDownload(archive: Archive): void {
-    this.subscription = this.service.download(archive);
-  }
-
-  onDelete(archive: Archive): void {
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
   }
 
 }
