@@ -5,12 +5,12 @@
     icon="folder"
   ></app-header>
 
-  <mat-card>
+  <mat-card *ngIf="!!archives; else loading">
     <mat-card-content>
       <button mat-button routerLink="new">STORE FILE</button>
 
       <mat-list>
-        <mat-list-item *ngFor="let archive of archives; else: loading">
+        <mat-list-item *ngFor="let archive of archives">
           <button mat-button mat-icon-button (click)="onDownload(archive)">
             <mat-icon>download</mat-icon>
           </button>

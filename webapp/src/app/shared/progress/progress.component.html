@@ -2,12 +2,14 @@
   <mat-progress-spinner
     *ngSwitchCase="'spinner'"
     [mode]="mode"
+    [value]="mode === 'determinate' ? value : undefined"
     color="primary"
   ></mat-progress-spinner>
 
   <mat-progress-bar
     *ngSwitchCase="'bar'"
     [mode]="mode"
+    [value]="mode === 'determinate' ? value : undefined"
     color="primary"
   ></mat-progress-bar>
 </div>

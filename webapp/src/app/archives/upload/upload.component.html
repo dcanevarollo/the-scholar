@@ -4,6 +4,49 @@
     subtitle="Store your files into our cloud"
     icon="folder"
   ></app-header>
+
+  <mat-card>
+    <mat-card-content>
+      <mat-progress-bar
+        *ngIf="progress"
+        mode="determinate"
+        [value]="progress"
+      ></mat-progress-bar>
+      <mat-form-field>
+        <mat-chip-list #filesList>
+          <mat-chip
+            *ngFor="let file of files"
+            [removable]="!progress"
+            (removed)="remove(file)"
+          >
+            {{ file.name }}
+            <mat-icon matChipRemove *ngIf="!progress">cancel</mat-icon>
+          </mat-chip>
+
+          <input
+            readonly
+            matInput
+            placeholder="Browse files"
+            [disabled]="progress > 0"
+            [matChipInputFor]="filesList"
+            (click)="fileInput.click()"
+          />
+        </mat-chip-list>
+        <input hidden multiple #fileInput type="file" (change)="add($event)" />
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button
+        mat-button
+        color="accent"
+        (click)="onUpload()"
+        [disabled]="files.size <= 0 || progress > 0"
+      >
+        {{ progress ? 'UPLOADING...' : 'UPLOAD' }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>
 
 <app-back-button></app-back-button>
